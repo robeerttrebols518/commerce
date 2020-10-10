@@ -1,0 +1,71 @@
+{% extends "auctions/layout.html" %}
+{% block body %}
+
+<div class="container">
+    <ul class="list-group">
+        <li class="list-group-item active">
+          <h2>Create listing</h2>
+        </li>
+      </ul>
+    <form action="{% url 'submit' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Title</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Title of the lisiting..." name="title" required>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Description</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Description..." name="description" minlength="200" maxlength="400" equired></textarea>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">All Categories</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="category" required>
+                <option>Antiques</option>
+                <option>Art</option>
+                <option>Baby</option>
+                <option>Books</option>
+                <option>Business & Industrial</option>
+                <option>Cameras & Photo</option>
+                <option>Cell Phones & Accessories</option>
+                <option>Clothing, Shoes & Accessories</option>
+                <option>Coins & Paper Money</option>
+                <option>Collectibles</option>
+                <option>Computers/Tablets & Networking</option>
+                <option>Consumer Electronics</option>
+                <option>Crafts</option>
+                <option>Dolls & Bears</option>
+                <option>DVDs & Movies</option>
+                <option>eBay Motors</option>
+                <option>Entertainment Memorabilia</option>
+                <option>Gift Cards & Coupons</option>
+                <option>Health & Beauty</option>
+                <option>Home & Garden</option>
+                <option>Jewelry & Watches</option>
+                <option>Music</option>
+                <option>Musical Instruments & Gear</option>
+                <option>Pet Supplies</option>
+                <option>Pottery & Glass</option>
+                <option>Real Estate</option>
+                <option>Specialty Services</option>
+                <option>Sporting Goods</option>
+                <option>Sports Mem, Cards & Fan Shop</option>
+                <option>Stamps</option>
+                <option>Tickets & Experiences</option>
+                <option>Toys & Hobbies</option>
+                <option>Travel</option>
+                <option>Video Games & Consoles</option>
+                <option>Everything Else</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Initial Bid</label>
+            <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Starting bid..." name="price" required>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Image link</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="https://image.jpg" name="link" required>
+        </div>
+        <button class="btn btn-outline-info" type="submit">Submit</button>
+    </form>
+</div>
+{% endblock %}

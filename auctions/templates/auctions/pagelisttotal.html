@@ -1,0 +1,140 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div class="container" id="listings">
+  <ul class="list-group">
+    <li class="list-group-item active">
+      <h2>Article to auction:  {{i.title}}</h2>
+    </li>
+  </ul><br>
+  {% if error %}
+  <div class="alert alert-danger" role="alert">
+    {{error}}
+  </div>
+    {% endif %}
+    {% if errorgreen %}
+  <div class="alert alert-success" role="alert">
+    {{errorgreen}}
+  </div>
+  {% endif %}
+  <div class="card mb-3" style="max-width: 540px;" id="card-listings">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img src="{{i.link}}" style="width: 200px; height: 200px;"  class="figure-img img-fluid rounded" alt="" width="300px" height="400px">
+      </div>
+      <div class="col-md-12">
+        {% if user.username %}
+        <div class="row ">
+          <div class="col-12" id="card-listings ">
+            <p>
+              <p class=""><b>Product description: </b>{{i.description}}</p>
+              {% if added %}
+              <a href="{% url 'removelist' i.id %}"><button class="btn btn-danger">Remove from watchlist</button></a>
+              {% else %}
+              <a href="{% url 'addtolist' i.id %}"><button class="btn btn-success">Add to watchlist</button></a>
+              {% endif %}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+<div class="container" id="listings">
+  <div class="card mb-3" style="max-width: 540px;" id="card-listings">  
+    <div class="row no-gutters">
+      <div class="col-md-12">
+        <div class="col-md-12">
+          <div class="row ">
+            <div class="col-12" id="card-listings ">
+              <p>
+                <h3>Current Bid: ${{i.price}}</h3>
+                {% if user.username %}
+                {% if owner %}
+              </p>
+              <a href="{% url 'endauction' i.id %}"><button class="btn btn-warning">Close Bid</button></a>
+            </div>
+          </div>
+          {% endif %}
+          {% endif %}
+        </div>
+      </div>
+      <p>
+        <ul>
+          <b>Details:</b>
+          <li><b>Owner: </b>{{i.owner}}</li>
+          <li><b>Category: </b>{{i.category}}</li>
+          <li><b>Created on: </b>{{i.time}}</li>
+        </ul>
+      </p>
+      {% if user.username %}
+      <div class="col-md-12">
+        <div class="col-md-12">
+          <div class="row ">
+            <div class="col-12" id="card-listings ">
+              <h4>Place your bid:</h4>
+              <form action="{% url 'uploadsubmit' i.id %}" method="POST">
+                {% csrf_token %}
+                <div class="form-row align-items-center">
+                  <div class="col-auto">
+                    <input type="number" class="form-control mb-2" id="inlineFormInput" name="bid" placeholder="your bid...">
+                  </div>
+                  <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                  </div>
+                </div>
+              </form>
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" id="listings">
+  <div class="card mb-3" style="max-width: 540px;" id="card-listings">
+    <div class="row no-gutters">
+      <div class="col-md-12">
+        <div class="col-md-12">
+          <div class="row ">
+            <div class="col-12" id="card-listings ">
+              <form action="{% url 'submitct' i.id %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1"><b>Write a comment:</b></label>
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment" placeholder="Write your comment here..." required></textarea>
+                </div>
+                <button class="btn btn-secondary" type="submit">Submit</button>
+              </form>
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    {% endif %}
+    {% if comments %}
+    <div class="col-md-12">
+      <h3>Comments:</h3>
+    </div>
+    {% for c in comments %}
+    <div class="card mb-3" style="max-width: 540px;">
+      <div class="row no-gutters">
+        <div class="col-md-12">
+          <div class="card-body">
+            <h5 class="card-title">{{c.user}}</h5>
+            <p class="card-text">{{c.comment}}</p>
+            <p class="card-text"><small class="text-muted">{{c.time}} UTC</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

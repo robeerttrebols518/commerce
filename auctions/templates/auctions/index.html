@@ -1,0 +1,25 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div class="container">
+  <ul class="list-group">
+    <li class="list-group-item active">
+      <h2>Active listings</h2>
+    </li>
+  </ul><br>
+  <div class="row" id="listings" >
+    {% for i in articles %}
+    <div class="col-3" id="card-listings">
+      <div class="">
+        <img src="{{i.link}}" style="width: 200px; height: 200px;"  class="figure-img img-fluid rounded" alt="" width="300px" height="400px">
+        <h5 class="card-title">{{i.title}}</h5>
+        <p class="card-text"><small class="text-muted">{{i.time}}</small></p>
+        <p class="card-text">Price: ${{i.price}}</p>
+        <a href="{% url 'pagelisttotal' i.id %}"><button class="btn btn-outline-success">Bid Now!</button></a>
+        <br><br><br>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
